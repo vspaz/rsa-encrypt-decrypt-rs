@@ -1,10 +1,9 @@
 mod cryptolib;
-use std::str;
-use crate::cryptolib::encoder::Encoder;
-use crate::cryptolib::decoder::Decoder;
 
-fn main() {
-    let private_key = "-----BEGIN RSA PRIVATE KEY-----
+use crate::cryptolib::decoder::Decoder;
+use crate::cryptolib::encoder::Encoder;
+
+const TEST_PRIVATE_KEY: &str = "-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAxGDcSAjiHKP9v2ITR+BjQmt9Tx2zW08ZyrjOxPew+Gxl2m5z
 JyoP8sicZV81BeMNFkMg6q7sMtRXHhX1nFiTql5HBIqhZohYlN3LIXK2bdPWpDtt
 rOFXfsSbZ4Wqy3XhXBhiPNn3kkkRv1N5L/IYcdrxwqaqvTlJzOeQnDsd3+AmkYst
@@ -31,7 +30,8 @@ R8kUSSyPqFHIkURtB/sTobrpww5dmA4dCcz2UNuIWXf6UKCXbKsFS5XWH5ONy4l8
 /+oGBiPm8mKmx/dcU408x4PK76JlfduuoXuzE9jEmx46kwU4jGDS1GZYkwjGVPY8
 8UmZ7fFkjNFJH0Rh5y+tmoFyou3FsWzL2lpd1mIryAH2LR3PGE/t
 -----END RSA PRIVATE KEY-----";
-    let public_key = "-----BEGIN PUBLIC KEY-----
+
+const TEST_PUBLIC_KEY: &str = "-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxGDcSAjiHKP9v2ITR+Bj
 Qmt9Tx2zW08ZyrjOxPew+Gxl2m5zJyoP8sicZV81BeMNFkMg6q7sMtRXHhX1nFiT
 ql5HBIqhZohYlN3LIXK2bdPWpDttrOFXfsSbZ4Wqy3XhXBhiPNn3kkkRv1N5L/IY
@@ -41,16 +41,25 @@ sjtwXVB1Y2SxqrhNMdBU7W6ZA8WUQQidr4MBxEFoujsLjaCl8LMsbEpAAilKezwu
 bQIDAQAB
 -----END PUBLIC KEY-----";
 
-    let encoder = Encoder::new(public_key);
-    let encrypted_text = encoder.encrypt("foo");
-    let encrypted_text_2 = encrypted_text.clone();
-    let encoded_text_with_base64 = Encoder::to_base64(encrypted_text);
-    let encoded_text_with_base85 = Encoder::to_base85(encrypted_text_2);
-    println!("{}", encoded_text_with_base64);
-    println!("{}", encoded_text_with_base85);
+fn main() {
+    let text = "some text data";
+    let encoder = Encoder::new(TEST_PUBLIC_KEY);
+    let encrypted_text = encoder.encrypt(text);
+    let base_85_encoded_text = Encoder::to_base85(encrypted_text);
 
-    let decoder = Decoder::new(private_key);
-    let decoded_text = Decoder::from_base64(encoded_text_with_base64);
-    let decrypted_text = decoder.decrypt(decoded_text);
+    let decoder = Decoder::new(TEST_PRIVATE_KEY);
+    let base85_decoded_text = Decoder::from_base85(base_85_encoded_text);
+    let decrypted_text = decoder.decrypt(base85_decoded_text);
+
+    assert_eq!(text, decrypted_text);
+    println!("decrypted text: {}", decrypted_text);
+
+    let encrypted_text = encoder.encrypt(text);
+    let base_64_encoded_text = Encoder::to_base64(encrypted_text);
+
+    let based_64_decoded_text = Decoder::from_base64(base_64_encoded_text);
+    let decrypted_text = decoder.decrypt(based_64_decoded_text);
+
+    assert_eq!(text, decrypted_text);
     println!("decrypted text: {}", decrypted_text);
 }
