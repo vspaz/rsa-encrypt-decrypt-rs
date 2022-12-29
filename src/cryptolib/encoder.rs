@@ -1,4 +1,5 @@
 use base64;
+use base85;
 use rsa::pkcs8::DecodePublicKey;
 use rsa::{PaddingScheme, PublicKey, RsaPublicKey};
 
@@ -22,5 +23,9 @@ impl Encoder {
 
     pub fn to_base64(text: Vec<u8>) -> String {
         base64::encode(text)
+    }
+
+    pub fn to_base85(text: Vec<u8>) -> String {
+        base85::encode(text.as_ref())
     }
 }

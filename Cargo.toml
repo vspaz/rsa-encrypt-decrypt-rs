@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 base64 = "0.20.0"
+base85 = "1.1.1"
 rand = "0.8.5"
 rsa = "0.7.2"

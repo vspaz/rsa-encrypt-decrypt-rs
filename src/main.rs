@@ -14,5 +14,9 @@ LwIDAQAB
 -----END PUBLIC KEY-----";
     let encoder = Encoder::new(pem);
     let encrypted_text = encoder.encrypt("foo");
-    Encoder::to_base64(encrypted_text);
+    let encrypted_text_2 = encrypted_text.clone();
+    let encoded_text_with_base64 = Encoder::to_base64(encrypted_text);
+    let encoded_text_with_base85 = Encoder::to_base85(encrypted_text_2);
+    println!("{}", encoded_text_with_base64);
+    println!("{}", encoded_text_with_base85);
 }
