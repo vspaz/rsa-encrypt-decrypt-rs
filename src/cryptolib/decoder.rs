@@ -51,7 +51,7 @@ mod tests {
     fn test_from_base85_ok() {
         let some_text = Encoder::to_base85(b"foobar".to_vec());
         let byte_decoded_text = Decoder::from_base85(some_text);
-        let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
+        let decoded_text = Decoder::from_bytes(byte_decoded_text);
         assert_eq!("foobar", decoded_text);
     }
 

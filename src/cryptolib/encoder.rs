@@ -29,6 +29,6 @@ impl Encoder {
     }
 
     pub fn to_bytes(serializable: String) -> Vec<u8> {
-       serializable.as_bytes().to_vec()
+        serializable.as_bytes().to_vec()
     }
 }
