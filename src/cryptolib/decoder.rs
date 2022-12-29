@@ -29,3 +29,17 @@ impl Decoder {
         base85::decode(&text).expect("failed to decode")
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::cryptolib::decoder::Decoder;
+    use crate::cryptolib::encoder::Encoder;
+
+    #[test]
+    fn test_from_base64_ok() {
+        let some_text = Encoder::to_base64("foobar".as_bytes().to_vec());
+        let byte_decoded_text = Decoder::from_base64(some_text);
+        let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
+        assert_eq!("foobar", decoded_text);
+    }
+}
