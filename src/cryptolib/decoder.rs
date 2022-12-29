@@ -42,4 +42,12 @@ mod tests {
         let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
         assert_eq!("foobar", decoded_text);
     }
+
+    #[test]
+    fn test_from_base85_ok() {
+        let some_text = Encoder::to_base85("foobar".as_bytes().to_vec());
+        let byte_decoded_text = Decoder::from_base85(some_text);
+        let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
+        assert_eq!("foobar", decoded_text);
+    }
 }
