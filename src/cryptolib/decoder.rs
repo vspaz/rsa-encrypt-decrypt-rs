@@ -7,8 +7,9 @@ pub struct Decoder {
 
 impl Decoder {
     pub fn new(private_key: &str) -> Decoder {
-        let pem = RsaPrivateKey::from_pkcs1_pem(private_key).expect("failed to parse key");
-        Decoder { pem }
+        Decoder {
+            pem: RsaPrivateKey::from_pkcs1_pem(private_key).expect("failed to parse key"),
+        }
     }
 
     pub fn decrypt(&self, text: Vec<u8>) -> String {

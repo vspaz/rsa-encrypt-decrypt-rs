@@ -7,8 +7,9 @@ pub struct Encoder {
 
 impl Encoder {
     pub fn new(public_key: &str) -> Encoder {
-        let pem = RsaPublicKey::from_public_key_pem(public_key).unwrap();
-        Encoder { pem }
+        Encoder {
+            pem: RsaPublicKey::from_public_key_pem(public_key).expect("failed to read key"),
+        }
     }
 
     pub fn encrypt(&self, text: &str) -> Vec<u8> {
@@ -16,7 +17,7 @@ impl Encoder {
         let mut rng = rand::thread_rng();
         self.pem
             .encrypt(&mut rng, padding, text.as_bytes())
-            .unwrap()
+            .expect("failed to encrypt")
     }
 
     pub fn to_base64(text: Vec<u8>) -> String {
