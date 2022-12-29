@@ -54,4 +54,12 @@ mod tests {
         let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
         assert_eq!("foobar", decoded_text);
     }
+
+    #[test]
+    fn test_from_bytes_ok() {
+        let some_text = "foobar";
+        let encoded_text = Encoder::to_bytes(String::from(some_text));
+        let decoded_text = Decoder::from_bytes(encoded_text);
+        assert_eq!(some_text, decoded_text);
+    }
 }
