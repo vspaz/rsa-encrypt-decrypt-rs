@@ -4,7 +4,7 @@ a small library to encrypt/decrypt data with RSA public/private key pair and bas
 
 you can generate your own key pair as:
 
-## Generating test public/private RSA key-pair.
+### Generating test public/private RSA key-pair.
 
 ```shell
 openssl genrsa -out private.pem 2048
@@ -54,4 +54,25 @@ cdrxwqaqvTlJzOeQnDsd3+AmkYstuD4rgElOFkcUawtF7lKIYYFi42cYkJo51UD4
 sjtwXVB1Y2SxqrhNMdBU7W6ZA8WUQQidr4MBxEFoujsLjaCl8LMsbEpAAilKezwu
 bQIDAQAB
 -----END PUBLIC KEY-----";
+```
+
+### Encrypting & Decrypting test with RSA key pair
+
+```rust
+use crate::cryptolib::decoder::Decoder;
+use crate::cryptolib::encoder::Encoder;
+
+
+fn main() {
+    let text = "some text data";
+    
+    let encoder = Encoder::new(TEST_PUBLIC_KEY);
+    let encrypted_text = encoder.encrypt(text);
+
+    let decoder = Decoder::new(TEST_PRIVATE_KEY);
+    let decrypted_text = decoder.decrypt(encrypted_text);
+
+    assert_eq!(text, decrypted_text);
+}
+
 ```
