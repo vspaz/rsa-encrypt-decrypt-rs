@@ -1,3 +1,4 @@
+use base64;
 use rsa::pkcs8::DecodePublicKey;
 use rsa::{PaddingScheme, PublicKey, RsaPublicKey};
 
@@ -11,11 +12,15 @@ impl Encoder {
         Encoder { pem }
     }
 
-    pub fn encrypt(&self, text: String) -> Vec<u8> {
+    pub fn encrypt(&self, text: &str) -> Vec<u8> {
         let padding = PaddingScheme::new_pkcs1v15_encrypt();
         let mut rng = rand::thread_rng();
         self.pem
             .encrypt(&mut rng, padding, text.as_bytes())
             .unwrap()
+    }
+
+    pub fn to_base64(text: Vec<u8>) -> String {
+        base64::encode(text)
     }
 }

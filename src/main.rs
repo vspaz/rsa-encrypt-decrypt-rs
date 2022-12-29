@@ -13,4 +13,6 @@ n04APPKIjpMyQdnWlby7rNyQtE4+CV+jcFjqJbE/Xilcvqxt6DirjFCvYeKYl1uH
 LwIDAQAB
 -----END PUBLIC KEY-----";
     let encoder = Encoder::new(pem);
+    let encrypted_text = encoder.encrypt("foo");
+    Encoder::to_base64(encrypted_text);
 }
