@@ -28,6 +28,10 @@ impl Decoder {
     pub fn from_base85(text: String) -> Vec<u8> {
         base85::decode(&text).expect("failed to decode")
     }
+
+    pub fn from_bytes(deserializable: Vec<u8>) -> String {
+        String::from_utf8(deserializable).expect("failed to convert to string")
+    }
 }
 
 #[cfg(test)]
@@ -37,15 +41,15 @@ mod tests {
 
     #[test]
     fn test_from_base64_ok() {
-        let some_text = Encoder::to_base64("foobar".as_bytes().to_vec());
+        let some_text = Encoder::to_base64(b"foobar".to_vec());
         let byte_decoded_text = Decoder::from_base64(some_text);
-        let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
+        let decoded_text = Decoder::from_bytes(byte_decoded_text);
         assert_eq!("foobar", decoded_text);
     }
 
     #[test]
     fn test_from_base85_ok() {
-        let some_text = Encoder::to_base85("foobar".as_bytes().to_vec());
+        let some_text = Encoder::to_base85(b"foobar".to_vec());
         let byte_decoded_text = Decoder::from_base85(some_text);
         let decoded_text = String::from_utf8(byte_decoded_text).unwrap();
         assert_eq!("foobar", decoded_text);

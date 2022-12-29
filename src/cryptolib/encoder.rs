@@ -27,4 +27,8 @@ impl Encoder {
     pub fn to_base85(text: Vec<u8>) -> String {
         base85::encode(text.as_ref())
     }
+
+    pub fn to_bytes(serializable: String) -> Vec<u8> {
+       serializable.as_bytes().to_vec()
+    }
 }
