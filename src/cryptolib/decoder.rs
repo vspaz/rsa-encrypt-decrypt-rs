@@ -2,7 +2,7 @@ use base64;
 use base64::DecodeError;
 use base85;
 use rsa::pkcs1::DecodeRsaPrivateKey;
-use rsa::pkcs8::DecodePublicKey;
+use rsa::pkcs8::{DecodePrivateKey, DecodePublicKey};
 use rsa::{PaddingScheme, RsaPrivateKey};
 
 pub struct Decoder {
@@ -11,13 +11,14 @@ pub struct Decoder {
 
 impl Decoder {
     pub fn new(private_key: &str) -> Decoder {
-        let pem = RsaPrivateKey::from_pkcs1_pem(private_key).unwrap();
+        let pem = RsaPrivateKey::from_pkcs1_pem(private_key).expect("failed to parse key");
         Decoder { pem }
     }
 
-    pub fn decrypt(&self, text: Vec<u8>) -> Vec<u8> {
+    pub fn decrypt(&self, text: Vec<u8>) -> String {
         let padding = PaddingScheme::new_pkcs1v15_encrypt();
-        self.pem.decrypt(padding, &text).unwrap()
+        let decrypted_text = self.pem.decrypt(padding, &text).unwrap();
+        String::from_utf8(decrypted_text).unwrap()
     }
 
     pub fn from_base64(text: String) -> Vec<u8> {
