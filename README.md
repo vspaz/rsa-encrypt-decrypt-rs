@@ -56,7 +56,7 @@ bQIDAQAB
 -----END PUBLIC KEY-----";
 ```
 
-### Encrypting & Decrypting test with RSA key pair
+### Encrypting & Decrypting text with RSA key pair
 
 ```rust
 use crate::cryptolib::decoder::Decoder;
@@ -75,4 +75,26 @@ fn main() {
     assert_eq!(text, decrypted_text);
 }
 
+```
+
+### Encryption/Decryption with RSA key pair & base85 encoding/decoding
+
+```rust
+use crate::cryptolib::decoder::Decoder;
+use crate::cryptolib::encoder::Encoder;
+
+
+fn main() {
+    let text = "some text data";
+    let encoder = Encoder::new(TEST_PUBLIC_KEY);
+    let encrypted_text = encoder.encrypt(text);
+    let base_85_encoded_text = Encoder::to_base85(encrypted_text);
+
+    let decoder = Decoder::new(TEST_PRIVATE_KEY);
+    let base85_decoded_text = Decoder::from_base85(base_85_encoded_text);
+    let decrypted_text = decoder.decrypt(base85_decoded_text);
+
+    assert_eq!(text, decrypted_text);
+    println!("decrypted text: {}", decrypted_text);
+}
 ```
