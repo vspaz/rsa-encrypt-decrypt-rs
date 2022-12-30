@@ -113,3 +113,17 @@ fn main() {
     assert_eq!(b"foobar".to_vec(), decoded_text);
 }
 ```
+
+### base64 encoding/decoding.
+
+```rust
+use crate::cryptolib::decoder::Decoder;
+use crate::cryptolib::encoder::Encoder;
+
+
+fn main() {
+    let text = Encoder::to_base64(b"foobar".to_vec());
+    let decoded_text = Decoder::from_base64(text);
+    assert_eq!(b"foobar".to_vec(), decoded_text);
+}
+```
