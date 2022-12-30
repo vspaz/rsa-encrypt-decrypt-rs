@@ -127,3 +127,7 @@ fn main() {
     assert_eq!(b"foobar".to_vec(), decoded_text);
 }
 ```
+
+**NOTE**: please refer to:
+* [rsa-encrypt-decrypt-golang](https://github.com/vspaz/rsa-encrypt-decrypt-golang) for the Go lib
+* [rsa-encrypt-decrypt-python](https://github.com/vspaz/rsa-encrypt-decrypt-python) for the Python lib
