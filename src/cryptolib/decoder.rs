@@ -43,26 +43,24 @@ mod tests {
 
     #[test]
     fn test_from_base64_ok() {
-        let some_text = Encoder::to_base64(b"foobar".to_vec());
-        let byte_decoded_text = Decoder::from_base64(some_text);
-        let decoded_text = Decoder::from_bytes(byte_decoded_text);
-        assert_eq!("foobar", decoded_text);
+        let text = Encoder::to_base64(b"foobar".to_vec());
+        let decoded_text = Decoder::from_base64(text);
+        assert_eq!(b"foobar".to_vec(), decoded_text);
     }
-
+    
     #[test]
     fn test_from_base85_ok() {
-        let some_text = Encoder::to_base85(b"foobar".to_vec());
-        let byte_decoded_text = Decoder::from_base85(some_text);
-        let decoded_text = Decoder::from_bytes(byte_decoded_text);
-        assert_eq!("foobar", decoded_text);
+        let text = Encoder::to_base85(b"foobar".to_vec());
+        let decoded_text = Decoder::from_base85(text);
+        assert_eq!(b"foobar".to_vec(), decoded_text);
     }
 
     #[test]
     fn test_from_bytes_ok() {
-        let some_text = "foobar";
-        let encoded_text = Encoder::to_bytes(String::from(some_text));
+        let text = "foobar";
+        let encoded_text = Encoder::to_bytes(String::from(text));
         let decoded_text = Decoder::from_bytes(encoded_text);
-        assert_eq!(some_text, decoded_text);
+        assert_eq!(text, decoded_text);
     }
 
     #[test]
