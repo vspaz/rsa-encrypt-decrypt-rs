@@ -100,15 +100,16 @@ fn main() {
 }
 ```
 
+### base85 encoding/decoding.
+
 ```rust
 use crate::cryptolib::decoder::Decoder;
 use crate::cryptolib::encoder::Encoder;
 
 
 fn main() {
-    let some_text = Encoder::to_base64(b"foobar".to_vec());
-    let byte_decoded_text = Decoder::from_base64(some_text);
-    let decoded_text = Decoder::from_bytes(byte_decoded_text);
-    assert_eq!("foobar", decoded_text);
+    let text = Encoder::to_base85(b"foobar".to_vec());
+    let decoded_text = Decoder::from_base85(text);
+    assert_eq!(b"foobar".to_vec(), decoded_text);
 }
 ```
