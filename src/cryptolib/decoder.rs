@@ -29,6 +29,7 @@ impl Decoder {
         base85::decode(&text).expect("failed to decode")
     }
 
+    #[allow(dead_code)]
     pub fn from_bytes(deserializable: Vec<u8>) -> String {
         String::from_utf8(deserializable).expect("failed to convert to string")
     }
