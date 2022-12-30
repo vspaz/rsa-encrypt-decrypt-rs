@@ -2,7 +2,7 @@ use rsa::pkcs8::DecodePublicKey;
 use rsa::{PaddingScheme, PublicKey, RsaPublicKey};
 
 pub struct Encoder {
-    pem: RsaPublicKey,
+    pub(crate) pem: RsaPublicKey,
 }
 
 impl Encoder {

@@ -38,6 +38,7 @@ impl Decoder {
 mod tests {
     use crate::cryptolib::decoder::Decoder;
     use crate::cryptolib::encoder::Encoder;
+    use rsa::{RsaPrivateKey, RsaPublicKey};
 
     #[test]
     fn test_from_base64_ok() {
@@ -61,5 +62,20 @@ mod tests {
         let encoded_text = Encoder::to_bytes(String::from(some_text));
         let decoded_text = Decoder::from_bytes(encoded_text);
         assert_eq!(some_text, decoded_text);
+    }
+
+    #[test]
+    fn test_decrypt_ok() {
+        let private_key = RsaPrivateKey::new(&mut rand::thread_rng(), 2048).unwrap();
+
+        let text = "some text";
+        let encoder = Encoder {
+            pem: RsaPublicKey::from(&private_key),
+        };
+        let encrypted_text = encoder.encrypt(text);
+
+        let decoder = Decoder { pem: private_key };
+        let decrypted_text = decoder.decrypt(encrypted_text);
+        assert_eq!(text, decrypted_text);
     }
 }
