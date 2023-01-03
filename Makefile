@@ -13,3 +13,7 @@ style-fix:
 .PHONY: lint
 lint:
 	cargo clippy
+
+.PHONY: clean
+clean:
+	cargo clean
