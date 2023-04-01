@@ -1,5 +1,7 @@
 use rsa::pkcs8::DecodePublicKey;
 use rsa::{PaddingScheme, PublicKey, RsaPublicKey};
+use base64::engine::Engine as _;
+use base64::engine::general_purpose::STANDARD as BASE64;
 
 pub struct Encoder {
     pub(crate) pem: RsaPublicKey,
@@ -21,7 +23,7 @@ impl Encoder {
     }
 
     pub fn to_base64(text: Vec<u8>) -> String {
-        base64::encode(text)
+        BASE64.encode(text)
     }
 
     pub fn to_base85(text: Vec<u8>) -> String {

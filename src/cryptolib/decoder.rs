@@ -1,5 +1,7 @@
 use rsa::pkcs1::DecodeRsaPrivateKey;
 use rsa::{PaddingScheme, RsaPrivateKey};
+use base64::engine::Engine as _;
+use base64::engine::general_purpose::STANDARD as BASE64;
 
 pub struct Decoder {
     pem: RsaPrivateKey,
@@ -22,7 +24,7 @@ impl Decoder {
     }
 
     pub fn from_base64(text: String) -> Vec<u8> {
-        base64::decode(text.into_bytes()).expect("failed to decode")
+        BASE64.decode(text.into_bytes()).expect("failed to decode")
     }
 
     pub fn from_base85(text: String) -> Vec<u8> {
