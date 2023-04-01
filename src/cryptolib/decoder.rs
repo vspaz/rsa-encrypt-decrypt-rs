@@ -1,7 +1,7 @@
+use base64::engine::general_purpose::STANDARD as BASE64;
+use base64::engine::Engine as _;
 use rsa::pkcs1::DecodeRsaPrivateKey;
 use rsa::{PaddingScheme, RsaPrivateKey};
-use base64::engine::Engine as _;
-use base64::engine::general_purpose::STANDARD as BASE64;
 
 pub struct Decoder {
     pem: RsaPrivateKey,
@@ -49,7 +49,7 @@ mod tests {
         let decoded_text = Decoder::from_base64(text);
         assert_eq!(b"foobar".to_vec(), decoded_text);
     }
-    
+
     #[test]
     fn test_from_base85_ok() {
         let text = Encoder::to_base85(b"foobar".to_vec());
