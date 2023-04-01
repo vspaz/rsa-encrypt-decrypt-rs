@@ -1,7 +1,7 @@
 use base64::engine::general_purpose::STANDARD as BASE64;
 use base64::engine::Engine as _;
 use rsa::pkcs8::DecodePublicKey;
-use rsa::{PaddingScheme, PublicKey, RsaPublicKey};
+use rsa::{PublicKey, RsaPublicKey,  Pkcs1v15Encrypt};
 
 pub struct Encoder {
     pub(crate) pem: RsaPublicKey,
@@ -15,10 +15,9 @@ impl Encoder {
     }
 
     pub fn encrypt(&self, text: &str) -> Vec<u8> {
-        let padding = PaddingScheme::new_pkcs1v15_encrypt();
         let mut rng = rand::thread_rng();
         self.pem
-            .encrypt(&mut rng, padding, text.as_bytes())
+            .encrypt(&mut rng,  Pkcs1v15Encrypt, text.as_bytes())
             .expect("failed to encrypt")
     }
 

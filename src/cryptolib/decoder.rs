@@ -1,7 +1,7 @@
 use base64::engine::general_purpose::STANDARD as BASE64;
 use base64::engine::Engine as _;
 use rsa::pkcs1::DecodeRsaPrivateKey;
-use rsa::{PaddingScheme, RsaPrivateKey};
+use rsa::{PaddingScheme, RsaPrivateKey, Pkcs1v15Encrypt};
 
 pub struct Decoder {
     pem: RsaPrivateKey,
@@ -15,10 +15,9 @@ impl Decoder {
     }
 
     pub fn decrypt(&self, text: Vec<u8>) -> String {
-        let padding = PaddingScheme::new_pkcs1v15_encrypt();
         let decrypted_text = self
             .pem
-            .decrypt(padding, &text)
+            .decrypt(Pkcs1v15Encrypt, &text)
             .expect("failed to read the key");
         String::from_utf8(decrypted_text).expect("failed to convert to string")
     }
