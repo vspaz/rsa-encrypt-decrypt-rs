@@ -1,7 +1,7 @@
 use base64::engine::general_purpose::STANDARD as BASE64;
 use base64::engine::Engine as _;
 use rsa::pkcs1::DecodeRsaPrivateKey;
-use rsa::{PaddingScheme, RsaPrivateKey, Pkcs1v15Encrypt};
+use rsa::{Pkcs1v15Encrypt, RsaPrivateKey};
 
 pub struct Decoder {
     pem: RsaPrivateKey,
