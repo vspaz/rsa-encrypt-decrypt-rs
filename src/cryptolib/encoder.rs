@@ -1,7 +1,7 @@
 use base64::engine::general_purpose::STANDARD as BASE64;
 use base64::engine::Engine as _;
 use rsa::pkcs8::DecodePublicKey;
-use rsa::{Pkcs1v15Encrypt, PublicKey, RsaPublicKey};
+use rsa::{Pkcs1v15Encrypt, RsaPublicKey};
 
 pub struct Encoder {
     pub(crate) pem: RsaPublicKey,
