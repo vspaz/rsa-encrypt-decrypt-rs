@@ -8,7 +8,7 @@ pub struct Encoder {
 }
 
 impl Encoder {
-    pub fn new(public_key: &str) -> Encoder {
+    pub fn new(public_key: &str) -> Self {
         Encoder {
             pem: RsaPublicKey::from_public_key_pem(public_key).expect("failed to read key"),
         }

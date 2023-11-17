@@ -8,7 +8,7 @@ pub struct Decoder {
 }
 
 impl Decoder {
-    pub fn new(private_key: &str) -> Decoder {
+    pub fn new(private_key: &str) -> Self {
         Decoder {
             pem: RsaPrivateKey::from_pkcs1_pem(private_key).expect("failed to parse key"),
         }
