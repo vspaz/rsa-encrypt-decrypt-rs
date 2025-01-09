@@ -6,6 +6,9 @@ build:
 test:
 	cargo test -- --test-threads=8
 
+run-examples:
+	cargo run --example examples
+
 .PHONY: style-fix
 style-fix:
 	cargo fmt
