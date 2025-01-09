@@ -1,7 +1,5 @@
-mod cryptolib;
-
-use cryptolib::decoder::Decoder;
-use cryptolib::encoder::Encoder;
+use rsa_encrypt_decrypt_rs::cryptolib::decoder::Decoder;
+use rsa_encrypt_decrypt_rs::cryptolib::encoder::Encoder;
 
 const TEST_PRIVATE_KEY: &str = "-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAxGDcSAjiHKP9v2ITR+BjQmt9Tx2zW08ZyrjOxPew+Gxl2m5z
@@ -40,6 +38,7 @@ cdrxwqaqvTlJzOeQnDsd3+AmkYstuD4rgElOFkcUawtF7lKIYYFi42cYkJo51UD4
 sjtwXVB1Y2SxqrhNMdBU7W6ZA8WUQQidr4MBxEFoujsLjaCl8LMsbEpAAilKezwu
 bQIDAQAB
 -----END PUBLIC KEY-----";
+
 
 fn main() {
     let text = "some text data";
