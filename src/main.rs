@@ -1,7 +1,7 @@
 mod cryptolib;
 
-use crate::cryptolib::decoder::Decoder;
-use crate::cryptolib::encoder::Encoder;
+use cryptolib::decoder::Decoder;
+use cryptolib::encoder::Encoder;
 
 const TEST_PRIVATE_KEY: &str = "-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAxGDcSAjiHKP9v2ITR+BjQmt9Tx2zW08ZyrjOxPew+Gxl2m5z
